@@ -1,5 +1,5 @@
 # credsdefault-cli
-A CLI client for default credentials that uses a comprehensive dataset. The dataset contains information on services, vendors, systems, OT and IoT devices, routers, and more.
+CLI client for factory-default credentials search that uses a comprehensive dataset. The dataset contains information on services, vendors, systems, OT and IoT devices, routers, and more.
 
 ## Features
 - Caches dataset for offline retrieval
