@@ -26,4 +26,7 @@ CLI client for factory-default credentials search that uses a comprehensive data
 Download latest release and run it. It's Rust.
 
 ## Web Version
-Check out the WEB version at [credsdefault-search](https://github.com/krystianbajno/credsdefault-search)
+Check out the web version at [credsdefault-search](https://github.com/krystianbajno/credsdefault-search)
+
+## Dataset
+Check out the dataset at [credsdefault-dataset](https://github.com/krystianbajno/credsdefault-dataset)
