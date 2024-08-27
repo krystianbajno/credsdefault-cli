@@ -7,19 +7,19 @@ CLI client for factory-default credentials search that uses a comprehensive data
 - CSV report
 
 ## Usage
-**Update dataset**
+**Download/Update dataset**
 ```
-./credsdefault-cli --update
+./credsdefault-cli update
 ```
 
 **Search dataset**
 ```
-./credsdefault-cli keyword keyword2 keyword3
+./credsdefault-cli search keyword keyword2 keyword3
 ```
 
 **Export CSV report**
 ```
-./credsdefault-cli keyword keyword2 --csv report.csv
+./credsdefault-cli search keyword keyword2 --csv report.csv
 ```
 
 ## Installation
