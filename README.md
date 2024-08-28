@@ -25,6 +25,12 @@ CLI client for factory-default credentials search that uses a comprehensive data
 ## Installation
 Download latest release and run it. It's Rust.
 
+```
+iwr https://github.com/krystianbajno/credsdefault-cli/releases/download/release/credsdefault-cli-windows-x86_64 -outfile credsdefault-cli.exe
+wget https://github.com/krystianbajno/credsdefault-cli/releases/download/release/credsdefault-cli-linux-x86_64
+wget https://github.com/krystianbajno/credsdefault-cli/releases/download/release/credsdefault-cli-aarch64-apple-darwin
+```
+
 ## Web Version
 Check out the web version at [credsdefault-search](https://github.com/krystianbajno/credsdefault-search)
 
