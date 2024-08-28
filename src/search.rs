@@ -1,23 +1,22 @@
 use crate::dataset::CredentialEntry;
-use std::collections::HashSet;
 
 pub fn search_dataset(dataset: &[CredentialEntry], keywords: &[String]) -> Vec<CredentialEntry> {
-    let keywords_set: HashSet<String> = keywords.iter().cloned().collect();
     dataset
         .iter()
         .filter(|entry| {
-            keywords_set.iter().any(|kw| {
-                entry.manufacturer.contains(kw)
-                    || entry.model.contains(kw)
-                    || entry.version.contains(kw)
-                    || entry.role.contains(kw)
-                    || entry.login.contains(kw)
-                    || entry.password.contains(kw)
-                    || entry.method.contains(kw)
-                    || entry.source.contains(kw)
-                    || entry.comment.contains(kw)
-                    || entry.port.contains(kw)
-                    || entry.address.contains(kw)
+            keywords.iter().any(|kw| {
+                let kw_lower = kw.to_lowercase();
+                entry.manufacturer.to_lowercase().contains(&kw_lower)
+                    || entry.model.to_lowercase().contains(&kw_lower)
+                    || entry.version.to_lowercase().contains(&kw_lower)
+                    || entry.role.to_lowercase().contains(&kw_lower)
+                    || entry.login.to_lowercase().contains(&kw_lower)
+                    || entry.password.to_lowercase().contains(&kw_lower)
+                    || entry.method.to_lowercase().contains(&kw_lower)
+                    || entry.source.to_lowercase().contains(&kw_lower)
+                    || entry.comment.to_lowercase().contains(&kw_lower)
+                    || entry.port.to_lowercase().contains(&kw_lower)
+                    || entry.address.to_lowercase().contains(&kw_lower)
             })
         })
         .cloned()

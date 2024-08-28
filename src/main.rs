@@ -2,16 +2,16 @@ mod cli;
 mod dataset;
 mod search;
 mod output;
+mod loading;
 
+use anyhow::Result;
+use clap::Parser;
 use cli::{Cli, Commands};
 use dataset::{fetch_dataset, load_cached_dataset, export_to_csv};
 use output::print_results;
 use search::search_dataset;
-use anyhow::Result;
-use indicatif::ProgressBar;
 use std::path::PathBuf;
-use std::time::Duration;
-use clap::Parser;
+use loading::perform_with_loading;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -21,16 +21,18 @@ async fn main() -> Result<()> {
 
     match &args.command {
         Commands::Update => {
-            let pb = ProgressBar::new_spinner();
-            pb.enable_steady_tick(Duration::from_millis(100));
-            pb.set_message("Updating dataset...");
-            fetch_dataset(dataset_url, &cache_file).await?;
-            pb.finish_with_message("Dataset updated successfully.");
+            perform_with_loading("+ Updating dataset...", || async {
+                fetch_dataset(dataset_url, &cache_file).await
+            }).await?;
         }
         Commands::Search { keywords, csv } => {
-            let dataset = load_cached_dataset(&cache_file)
-                .expect("Failed to load dataset. Please run `--update` first.");
-            let results = search_dataset(&dataset, keywords);
+            let dataset = perform_with_loading("+ Loading dataset", || async {
+                load_cached_dataset(&cache_file).await
+            }).await.expect("Failed to load dataset. Please run `credsdefault-cli update` first.");
+            
+            let results = perform_with_loading("+ Searching dataset", || async {
+                Ok(search_dataset(&dataset, keywords))
+            }).await?;
 
             if let Some(csv_file) = csv {
                 export_to_csv(&results, csv_file)
@@ -41,5 +43,6 @@ async fn main() -> Result<()> {
             }
         }
     }
+
     Ok(())
 }
